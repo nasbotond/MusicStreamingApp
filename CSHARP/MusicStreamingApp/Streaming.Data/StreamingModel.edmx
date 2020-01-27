@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StreamingDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="artists">
+          <Key>
+            <PropertyRef Name="artist_id" />
+          </Key>
+          <Property Name="artist_id" Type="int" Nullable="false" />
+          <Property Name="artist_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="artist_label" Type="nvarchar" MaxLength="200" />
+          <Property Name="artist_age" Type="int" />
+          <Property Name="artist_gender" Type="nvarchar" MaxLength="20" />
+          <Property Name="artist_genre" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="conn_listener_song">
+          <Key>
+            <PropertyRef Name="connTwo_id" />
+          </Key>
+          <Property Name="connTwo_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="connTwo_listenerId" Type="int" />
+          <Property Name="connTwo_songId" Type="int" />
+        </EntityType>
+        <EntityType Name="conn_song_service">
+          <Key>
+            <PropertyRef Name="connOne__id" />
+          </Key>
+          <Property Name="connOne__id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="connOne_songId" Type="int" />
+          <Property Name="connOne_serviceId" Type="int" />
+        </EntityType>
+        <EntityType Name="listener">
+          <Key>
+            <PropertyRef Name="listener_id" />
+          </Key>
+          <Property Name="listener_id" Type="int" Nullable="false" />
+          <Property Name="listener_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="listener_country" Type="nvarchar" MaxLength="100" />
+          <Property Name="listener_deviceType" Type="nvarchar" MaxLength="200" />
+          <Property Name="listener_email" Type="nvarchar" MaxLength="200" />
+          <Property Name="listener_gender" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="servs">
+          <Key>
+            <PropertyRef Name="serv_id" />
+          </Key>
+          <Property Name="serv_id" Type="int" Nullable="false" />
+          <Property Name="serv_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="serv_size" Type="int" />
+          <Property Name="serv_website" Type="nvarchar" MaxLength="100" />
+          <Property Name="serv_price" Type="int" />
+          <Property Name="serv_country" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="songs">
+          <Key>
+            <PropertyRef Name="song_id" />
+          </Key>
+          <Property Name="song_id" Type="int" Nullable="false" />
+          <Property Name="song_title" Type="nvarchar" MaxLength="200" />
+          <Property Name="song_album" Type="nvarchar" MaxLength="200" />
+          <Property Name="song_length" Type="int" />
+          <Property Name="song_explicit" Type="bit" />
+          <Property Name="song_dateReleased" Type="date" />
+          <Property Name="song_artistId" Type="int" />
+        </EntityType>
+        <Association Name="FK__conn_list__connT__31EC6D26">
+          <End Role="listener" Type="Self.listener" Multiplicity="0..1" />
+          <End Role="conn_listener_song" Type="Self.conn_listener_song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="listener">
+              <PropertyRef Name="listener_id" />
+            </Principal>
+            <Dependent Role="conn_listener_song">
+              <PropertyRef Name="connTwo_listenerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__conn_list__connT__32E0915F">
+          <End Role="songs" Type="Self.songs" Multiplicity="0..1" />
+          <End Role="conn_listener_song" Type="Self.conn_listener_song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="songs">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="conn_listener_song">
+              <PropertyRef Name="connTwo_songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__conn_song__connO__2D27B809">
+          <End Role="songs" Type="Self.songs" Multiplicity="0..1" />
+          <End Role="conn_song_service" Type="Self.conn_song_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="songs">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="conn_song_service">
+              <PropertyRef Name="connOne_songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__conn_song__connO__2E1BDC42">
+          <End Role="servs" Type="Self.servs" Multiplicity="0..1" />
+          <End Role="conn_song_service" Type="Self.conn_song_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servs">
+              <PropertyRef Name="serv_id" />
+            </Principal>
+            <Dependent Role="conn_song_service">
+              <PropertyRef Name="connOne_serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__songs__song_arti__29572725">
+          <End Role="artists" Type="Self.artists" Multiplicity="0..1" />
+          <End Role="songs" Type="Self.songs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artists">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="songs">
+              <PropertyRef Name="song_artistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StreamingDatabaseModelStoreContainer">
+          <EntitySet Name="artists" EntityType="Self.artists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="conn_listener_song" EntityType="Self.conn_listener_song" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="conn_song_service" EntityType="Self.conn_song_service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="listener" EntityType="Self.listener" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="servs" EntityType="Self.servs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="songs" EntityType="Self.songs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__conn_list__connT__31EC6D26" Association="Self.FK__conn_list__connT__31EC6D26">
+            <End Role="listener" EntitySet="listener" />
+            <End Role="conn_listener_song" EntitySet="conn_listener_song" />
+          </AssociationSet>
+          <AssociationSet Name="FK__conn_list__connT__32E0915F" Association="Self.FK__conn_list__connT__32E0915F">
+            <End Role="songs" EntitySet="songs" />
+            <End Role="conn_listener_song" EntitySet="conn_listener_song" />
+          </AssociationSet>
+          <AssociationSet Name="FK__conn_song__connO__2D27B809" Association="Self.FK__conn_song__connO__2D27B809">
+            <End Role="songs" EntitySet="songs" />
+            <End Role="conn_song_service" EntitySet="conn_song_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__conn_song__connO__2E1BDC42" Association="Self.FK__conn_song__connO__2E1BDC42">
+            <End Role="servs" EntitySet="servs" />
+            <End Role="conn_song_service" EntitySet="conn_song_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__songs__song_arti__29572725" Association="Self.FK__songs__song_arti__29572725">
+            <End Role="artists" EntitySet="artists" />
+            <End Role="songs" EntitySet="songs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StreamingDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="artist">
+          <Key>
+            <PropertyRef Name="artist_id" />
+          </Key>
+          <Property Name="artist_id" Type="Int32" Nullable="false" />
+          <Property Name="artist_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="artist_label" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="artist_age" Type="Int32" />
+          <Property Name="artist_gender" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="artist_genre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="songs" Relationship="Self.FK__songs__song_arti__29572725" FromRole="artists" ToRole="songs" />
+        </EntityType>
+        <EntityType Name="conn_listener_song">
+          <Key>
+            <PropertyRef Name="connTwo_id" />
+          </Key>
+          <Property Name="connTwo_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="connTwo_listenerId" Type="Int32" />
+          <Property Name="connTwo_songId" Type="Int32" />
+          <NavigationProperty Name="listener" Relationship="Self.FK__conn_list__connT__31EC6D26" FromRole="conn_listener_song" ToRole="listener" />
+          <NavigationProperty Name="song" Relationship="Self.FK__conn_list__connT__32E0915F" FromRole="conn_listener_song" ToRole="songs" />
+        </EntityType>
+        <EntityType Name="conn_song_service">
+          <Key>
+            <PropertyRef Name="connOne__id" />
+          </Key>
+          <Property Name="connOne__id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="connOne_songId" Type="Int32" />
+          <Property Name="connOne_serviceId" Type="Int32" />
+          <NavigationProperty Name="song" Relationship="Self.FK__conn_song__connO__2D27B809" FromRole="conn_song_service" ToRole="songs" />
+          <NavigationProperty Name="serv" Relationship="Self.FK__conn_song__connO__2E1BDC42" FromRole="conn_song_service" ToRole="servs" />
+        </EntityType>
+        <EntityType Name="listener">
+          <Key>
+            <PropertyRef Name="listener_id" />
+          </Key>
+          <Property Name="listener_id" Type="Int32" Nullable="false" />
+          <Property Name="listener_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="listener_country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="listener_deviceType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="listener_email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="listener_gender" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="conn_listener_song" Relationship="Self.FK__conn_list__connT__31EC6D26" FromRole="listener" ToRole="conn_listener_song" />
+        </EntityType>
+        <EntityType Name="serv">
+          <Key>
+            <PropertyRef Name="serv_id" />
+          </Key>
+          <Property Name="serv_id" Type="Int32" Nullable="false" />
+          <Property Name="serv_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="serv_size" Type="Int32" />
+          <Property Name="serv_website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="serv_price" Type="Int32" />
+          <Property Name="serv_country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="conn_song_service" Relationship="Self.FK__conn_song__connO__2E1BDC42" FromRole="servs" ToRole="conn_song_service" />
+        </EntityType>
+        <EntityType Name="song">
+          <Key>
+            <PropertyRef Name="song_id" />
+          </Key>
+          <Property Name="song_id" Type="Int32" Nullable="false" />
+          <Property Name="song_title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="song_album" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="song_length" Type="Int32" />
+          <Property Name="song_explicit" Type="Boolean" />
+          <Property Name="song_dateReleased" Type="DateTime" Precision="0" />
+          <Property Name="song_artistId" Type="Int32" />
+          <NavigationProperty Name="artist" Relationship="Self.FK__songs__song_arti__29572725" FromRole="songs" ToRole="artists" />
+          <NavigationProperty Name="conn_listener_song" Relationship="Self.FK__conn_list__connT__32E0915F" FromRole="songs" ToRole="conn_listener_song" />
+          <NavigationProperty Name="conn_song_service" Relationship="Self.FK__conn_song__connO__2D27B809" FromRole="songs" ToRole="conn_song_service" />
+        </EntityType>
+        <Association Name="FK__songs__song_arti__29572725">
+          <End Role="artists" Type="Self.artist" Multiplicity="0..1" />
+          <End Role="songs" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artists">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="songs">
+              <PropertyRef Name="song_artistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__conn_list__connT__31EC6D26">
+          <End Role="listener" Type="Self.listener" Multiplicity="0..1" />
+          <End Role="conn_listener_song" Type="Self.conn_listener_song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="listener">
+              <PropertyRef Name="listener_id" />
+            </Principal>
+            <Dependent Role="conn_listener_song">
+              <PropertyRef Name="connTwo_listenerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__conn_list__connT__32E0915F">
+          <End Role="songs" Type="Self.song" Multiplicity="0..1" />
+          <End Role="conn_listener_song" Type="Self.conn_listener_song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="songs">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="conn_listener_song">
+              <PropertyRef Name="connTwo_songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__conn_song__connO__2D27B809">
+          <End Role="songs" Type="Self.song" Multiplicity="0..1" />
+          <End Role="conn_song_service" Type="Self.conn_song_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="songs">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="conn_song_service">
+              <PropertyRef Name="connOne_songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__conn_song__connO__2E1BDC42">
+          <End Role="servs" Type="Self.serv" Multiplicity="0..1" />
+          <End Role="conn_song_service" Type="Self.conn_song_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servs">
+              <PropertyRef Name="serv_id" />
+            </Principal>
+            <Dependent Role="conn_song_service">
+              <PropertyRef Name="connOne_serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StreamingDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="artists" EntityType="Self.artist" />
+          <EntitySet Name="conn_listener_song" EntityType="Self.conn_listener_song" />
+          <EntitySet Name="conn_song_service" EntityType="Self.conn_song_service" />
+          <EntitySet Name="listeners" EntityType="Self.listener" />
+          <EntitySet Name="servs" EntityType="Self.serv" />
+          <EntitySet Name="songs" EntityType="Self.song" />
+          <AssociationSet Name="FK__songs__song_arti__29572725" Association="Self.FK__songs__song_arti__29572725">
+            <End Role="artists" EntitySet="artists" />
+            <End Role="songs" EntitySet="songs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__conn_list__connT__31EC6D26" Association="Self.FK__conn_list__connT__31EC6D26">
+            <End Role="listener" EntitySet="listeners" />
+            <End Role="conn_listener_song" EntitySet="conn_listener_song" />
+          </AssociationSet>
+          <AssociationSet Name="FK__conn_list__connT__32E0915F" Association="Self.FK__conn_list__connT__32E0915F">
+            <End Role="songs" EntitySet="songs" />
+            <End Role="conn_listener_song" EntitySet="conn_listener_song" />
+          </AssociationSet>
+          <AssociationSet Name="FK__conn_song__connO__2D27B809" Association="Self.FK__conn_song__connO__2D27B809">
+            <End Role="songs" EntitySet="songs" />
+            <End Role="conn_song_service" EntitySet="conn_song_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__conn_song__connO__2E1BDC42" Association="Self.FK__conn_song__connO__2E1BDC42">
+            <End Role="servs" EntitySet="servs" />
+            <End Role="conn_song_service" EntitySet="conn_song_service" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StreamingDatabaseModelStoreContainer" CdmEntityContainer="StreamingDatabaseEntities">
+          <EntitySetMapping Name="artists">
+            <EntityTypeMapping TypeName="StreamingDatabaseModel.artist">
+              <MappingFragment StoreEntitySet="artists">
+                <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+                <ScalarProperty Name="artist_name" ColumnName="artist_name" />
+                <ScalarProperty Name="artist_label" ColumnName="artist_label" />
+                <ScalarProperty Name="artist_age" ColumnName="artist_age" />
+                <ScalarProperty Name="artist_gender" ColumnName="artist_gender" />
+                <ScalarProperty Name="artist_genre" ColumnName="artist_genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="conn_listener_song">
+            <EntityTypeMapping TypeName="StreamingDatabaseModel.conn_listener_song">
+              <MappingFragment StoreEntitySet="conn_listener_song">
+                <ScalarProperty Name="connTwo_id" ColumnName="connTwo_id" />
+                <ScalarProperty Name="connTwo_listenerId" ColumnName="connTwo_listenerId" />
+                <ScalarProperty Name="connTwo_songId" ColumnName="connTwo_songId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="conn_song_service">
+            <EntityTypeMapping TypeName="StreamingDatabaseModel.conn_song_service">
+              <MappingFragment StoreEntitySet="conn_song_service">
+                <ScalarProperty Name="connOne__id" ColumnName="connOne__id" />
+                <ScalarProperty Name="connOne_songId" ColumnName="connOne_songId" />
+                <ScalarProperty Name="connOne_serviceId" ColumnName="connOne_serviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="listeners">
+            <EntityTypeMapping TypeName="StreamingDatabaseModel.listener">
+              <MappingFragment StoreEntitySet="listener">
+                <ScalarProperty Name="listener_id" ColumnName="listener_id" />
+                <ScalarProperty Name="listener_name" ColumnName="listener_name" />
+                <ScalarProperty Name="listener_country" ColumnName="listener_country" />
+                <ScalarProperty Name="listener_deviceType" ColumnName="listener_deviceType" />
+                <ScalarProperty Name="listener_email" ColumnName="listener_email" />
+                <ScalarProperty Name="listener_gender" ColumnName="listener_gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servs">
+            <EntityTypeMapping TypeName="StreamingDatabaseModel.serv">
+              <MappingFragment StoreEntitySet="servs">
+                <ScalarProperty Name="serv_id" ColumnName="serv_id" />
+                <ScalarProperty Name="serv_name" ColumnName="serv_name" />
+                <ScalarProperty Name="serv_size" ColumnName="serv_size" />
+                <ScalarProperty Name="serv_website" ColumnName="serv_website" />
+                <ScalarProperty Name="serv_price" ColumnName="serv_price" />
+                <ScalarProperty Name="serv_country" ColumnName="serv_country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="songs">
+            <EntityTypeMapping TypeName="StreamingDatabaseModel.song">
+              <MappingFragment StoreEntitySet="songs">
+                <ScalarProperty Name="song_id" ColumnName="song_id" />
+                <ScalarProperty Name="song_title" ColumnName="song_title" />
+                <ScalarProperty Name="song_album" ColumnName="song_album" />
+                <ScalarProperty Name="song_length" ColumnName="song_length" />
+                <ScalarProperty Name="song_explicit" ColumnName="song_explicit" />
+                <ScalarProperty Name="song_dateReleased" ColumnName="song_dateReleased" />
+                <ScalarProperty Name="song_artistId" ColumnName="song_artistId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

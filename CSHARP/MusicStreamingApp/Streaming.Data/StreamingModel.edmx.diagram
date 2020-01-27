@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3a5c1070a2e94b3b9850bf71c4f80bd0" Name="Diagram1">
+        <EntityTypeShape EntityType="StreamingDatabaseModel.artist" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StreamingDatabaseModel.conn_listener_song" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StreamingDatabaseModel.conn_song_service" Width="1.875" PointX="5.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StreamingDatabaseModel.listener" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StreamingDatabaseModel.serv" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StreamingDatabaseModel.song" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="StreamingDatabaseModel.FK__songs__song_arti__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="StreamingDatabaseModel.FK__conn_list__connT__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="StreamingDatabaseModel.FK__conn_list__connT__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="StreamingDatabaseModel.FK__conn_song__connO__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="StreamingDatabaseModel.FK__conn_song__connO__2E1BDC42" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streaming.Program", "Streaming.Program\Streaming.Program.csproj", "{2DA2CBBE-302F-4C35-B1FC-1ABEA82DC145}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streaming.Data", "Streaming.Data\Streaming.Data.csproj", "{40FE41B5-88C7-47DB-98BA-43DEE70F9FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streaming.Repository", "Streaming.Repository\Streaming.Repository.csproj", "{A3113EB9-1D1E-42B4-92CC-00AE3A348922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streaming.Logic", "Streaming.Logic\Streaming.Logic.csproj", "{2066F0F1-8257-4D94-B15A-F9EFA73C2D51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streaming.Logic.Tests", "Streaming.Logic.Tests\Streaming.Logic.Tests.csproj", "{828906FC-FEA1-4651-8A4F-5B786CD946EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{018A5986-9E48-4F08-B155-98B5DBFAD150}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\oenik.ruleset = ..\..\..\oenik.ruleset
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DA2CBBE-302F-4C35-B1FC-1ABEA82DC145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DA2CBBE-302F-4C35-B1FC-1ABEA82DC145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DA2CBBE-302F-4C35-B1FC-1ABEA82DC145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DA2CBBE-302F-4C35-B1FC-1ABEA82DC145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40FE41B5-88C7-47DB-98BA-43DEE70F9FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FE41B5-88C7-47DB-98BA-43DEE70F9FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FE41B5-88C7-47DB-98BA-43DEE70F9FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FE41B5-88C7-47DB-98BA-43DEE70F9FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3113EB9-1D1E-42B4-92CC-00AE3A348922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3113EB9-1D1E-42B4-92CC-00AE3A348922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3113EB9-1D1E-42B4-92CC-00AE3A348922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3113EB9-1D1E-42B4-92CC-00AE3A348922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2066F0F1-8257-4D94-B15A-F9EFA73C2D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2066F0F1-8257-4D94-B15A-F9EFA73C2D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2066F0F1-8257-4D94-B15A-F9EFA73C2D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2066F0F1-8257-4D94-B15A-F9EFA73C2D51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{828906FC-FEA1-4651-8A4F-5B786CD946EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{828906FC-FEA1-4651-8A4F-5B786CD946EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{828906FC-FEA1-4651-8A4F-5B786CD946EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{828906FC-FEA1-4651-8A4F-5B786CD946EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C78CF9D-5B23-454F-81C6-B6CF97607736}
+	EndGlobalSection
+EndGlobal
